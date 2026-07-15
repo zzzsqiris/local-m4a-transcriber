@@ -2,6 +2,31 @@
 
 将 `.m4a` 录音转成 UTF-8 `.txt`，保留中文和英文，并区分讲话人。识别和说话人分析全部在本机完成，不调用转写 API，也不上传录音。
 
+## 常用 Terminal Command
+
+模型已经下载后，每次转录只需要：
+
+```bash
+cd /path/to/m4a_transcriber
+source .venv/bin/activate
+python transcribe_m4a.py "/完整路径/录音.m4a" --speakers 2 --offline
+```
+
+不知道讲话人数时，删除 `--speakers 2`：
+
+```bash
+python transcribe_m4a.py "/完整路径/录音.m4a" --offline
+```
+
+启动本地网页：
+
+```bash
+source .venv/bin/activate
+python web_app.py
+```
+
+然后打开 [http://127.0.0.1:7860](http://127.0.0.1:7860)。
+
 ## 一、安装
 
 当前电脑是 Apple Silicon Mac，使用 WhisperX 官方建议的 CPU `int8` 模式。
@@ -46,11 +71,10 @@ python transcribe_m4a.py "/完整路径/录音.m4a"
 
 ```bash
 source .venv/bin/activate
-export HF_TOKEN="你的只读Token"
 python web_app.py
 ```
 
-然后在浏览器打开 [http://127.0.0.1:7860](http://127.0.0.1:7860)，选择 M4A 文件并点击“开始转写”。网页只监听本机地址，不会把音频上传到网络。
+然后在浏览器打开 [http://127.0.0.1:7860](http://127.0.0.1:7860)，选择 M4A 文件并点击“开始转写”。网页只监听本机地址，不会把音频上传到网络。首次下载模型时需要先设置 `HF_TOKEN`；模型已经缓存后不需要 Token，网页会自动使用离线模式。
 
 已知有两位讲话人时，建议明确指定，可提高分人稳定性：
 

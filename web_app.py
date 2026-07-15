@@ -7,6 +7,7 @@ import subprocess
 import sys
 import threading
 import uuid
+import os
 from pathlib import Path
 from typing import Any
 
@@ -96,6 +97,8 @@ def run_job(job_id: str, source: Path, output: Path, model: str, speakers: int |
     ]
     if speakers is not None:
         command.extend(["--speakers", str(speakers)])
+    if not (os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_TOKEN")):
+        command.append("--offline")
     update_job(job_id, state="running", message="模型正在本机转写，长录音可能需要较久……")
     try:
         process = subprocess.Popen(
