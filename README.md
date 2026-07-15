@@ -29,6 +29,8 @@ python web_app.py
 
 ## 一、安装
 
+### macOS
+
 当前电脑是 Apple Silicon Mac，使用 WhisperX 官方建议的 CPU `int8` 模式。
 
 ```bash
@@ -39,6 +41,51 @@ source .venv/bin/activate
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
+### Windows（PowerShell）
+
+需要安装 Python 3.10 或更高版本。在 PowerShell 中运行：
+
+```powershell
+git clone https://github.com/zzzsqiris/local-m4a-transcriber.git
+cd local-m4a-transcriber
+
+winget install --id Gyan.FFmpeg -e
+
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+如果 PowerShell 禁止激活虚拟环境，只需为当前用户执行一次：
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+首次下载模型前，设置临时 Hugging Face Token：
+
+```powershell
+$env:HF_TOKEN="hf_你的只读Token"
+python transcribe_m4a.py "C:\完整路径\录音.m4a" --speakers 2
+```
+
+模型下载完成后，以后不需要 Token，可以完全离线运行：
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+python transcribe_m4a.py "C:\完整路径\录音.m4a" --speakers 2 --offline
+```
+
+启动 Windows 本地网页：
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+python web_app.py
+```
+
+然后打开 [http://127.0.0.1:7860](http://127.0.0.1:7860)。当前程序在 Windows 上也默认使用 CPU；有 NVIDIA 显卡的电脑目前仍可运行，但尚未启用 CUDA 加速。
 
 ## 二、首次下载说话人模型
 
