@@ -1,0 +1,23 @@
+.venv/
+.cache/
+.web_jobs/
+__pycache__/
+*.py[cod]
+
+# Local recordings, transcripts, credentials, and model artifacts
+*.m4a
+*.mp3
+*.wav
+*.flac
+*.txt
+!requirements.txt
+.env
+.env.*
+*.bin
+*.ckpt
+*.safetensors
+
+# macOS and editor files
+.DS_Store
+.idea/
+.vscode/
